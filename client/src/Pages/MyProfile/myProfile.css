@@ -1,0 +1,112 @@
+#img{
+  border: solid grey 1px;
+  margin-top: 15px;
+}
+
+#connect{
+  font-size:25px;
+}
+
+#reqBtn{
+  margin-top: 10px;
+}
+
+#editBtn {
+  cursor: pointer;
+  outline: none;
+  z-index: 3;
+  background: transparent;
+  color: #07051a;
+  font-size: 14px;
+  border: solid 1px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  transition: all 0.2s linear;
+  padding: 4px;
+  padding-right: 4px;
+}
+
+#editBtn:hover {
+  background: #009688;
+  color: white;
+  transition: all 0.2s linear;
+}
+
+#editBtn:active {
+  border-radius: 10px;
+}
+
+#editBtn {
+  padding:2px;
+  font-weight: 700;
+  border-color: black;
+}
+
+#addLink {
+  margin-top: 15px;
+  font-size: 15px;
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+
+#addLink:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Edit Prof Modal */
+
+#edProfModal{
+  color: white;
+  background: rgb(25,25,25);
+  background: linear-gradient(159deg, rgba(25,25,25,1) 41%, rgba(175,175,175,1) 100%);
+  border-radius: 15px;
+}
+
+#edPhotoModal{
+  color: white;
+  background: rgb(25,25,25);
+  background: linear-gradient(159deg, rgba(25,25,25,1) 41%, rgba(175,175,175,1) 100%);
+  border-radius: 5px;
+}
+
+#newUsername, #newName, #newEmail, #newBio, #newLink, #newTitle, #newBody{
+  border: 2px solid black;
+  padding: .25em .5em .3125em;
+  color: white;
+  border-radius: .25em;
+  background: transparent;
+  transition: all .100s;
+  bottom: 4em;
+  left: 50%;
+  width: 18em;
+  box-sizing: border-box;
+}
+
+
+#skillsDropdown, #instrumentFamily, #instrumentSelection{
+  border: 2px solid black;
+  padding: .25em .5em .3125em;
+  border-radius: .25em;
+  background: transparent;
+  transition: all .100s;
+  box-sizing: border-box;
+  color: grey;
+}
+
+#postType{
+  border: 2px solid black;
+  padding: .25em .5em .3125em;
+  border-radius: .25em;
+  background: transparent;
+  transition: all .100s;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  color: grey;
+}

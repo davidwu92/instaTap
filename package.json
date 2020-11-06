@@ -1,6 +1,10 @@
 {
   "name": "instaTap",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -44,5 +48,6 @@
     "passport-local-mongoose": "^6.0.1",
     "react-materialize": "^3.5.9",
     "start": "^5.1.0"
-  }
+  },
+  "devDependencies": {}
 }

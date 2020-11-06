@@ -1,25 +1,96 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom';
+// Using Pages
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom'
+
+import Navbar from './Components/Navbar'
+import LoggedinNav from './Components/LoggedinNav'
+
+import Home from './Pages/Home'
+import Login from './Pages/Login'
+import Register from './Pages/Register'
+
+import MyProfile from './Pages/MyProfile'
+// import OtherProfile from './Pages/OtherProfile'
+
+import UserContext from './utils/UserContext'
+
+import './App.css'
+
 
 function App() {
+  const [userState, setUserState] = useState({
+    username: '',
+    phone: '',
+    email: '',
+    password: '',
+  })
+  // Working handleInputchange: call for any Text-Input field.
+  userState.handleInputChange = (event) => {
+    setUserState({ ...userState, [event.target.name]: event.target.value })
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <UserContext.Provider value={userState}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Navbar />
+            <Home />
+          </Route>
+
+          <Route path="/login">
+            <Navbar />
+            <Login />
+          </Route>
+
+          <Route path="/register">
+            <Navbar />
+            <Register />
+          </Route>
+
+          <Route path="/myprofile">
+            <LoggedinNav />
+            <MyProfile />
+          </Route>
+
+          {/* <Route path="/search">
+            <LoggedinNav />
+            <Search />
+          </Route> */}
+
+          {/* <Route path="/otherprofile">
+            <LoggedinNav />
+            <OtherProfile />
+          </Route> */}
+
+          {/* <Route path="/forgotPassword">
+            <ForgotLogin />
+          </Route> */}
+
+          {/* <Route path="/reset/:token">
+            <ResetPass />
+          </Route> */}
+
+          {/* <Route path="/friends">
+            <LoggedinNav />
+            <FriendsList />
+            <FriendsView />
+          </Route> */}
+
+          {/* <Route path="/list">
+            <LoggedinNav />
+            <FriendsView />
+          </Route> */}
+        </Switch>
+      </Router>
+    </UserContext.Provider>
+  )
 }
 
-export default App;
+export default App

@@ -8,7 +8,7 @@ module.exports = app => {
 
   // Register new user
   app.post('/users', (req, res) => {
-      const { username, email, phone, links, bio } = req.body
+      const { username, email, phone, links, bio, password, pfPic, profile } = req.body
       // changed password functionality
       
       bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then(hashedPassword => {
@@ -19,7 +19,7 @@ module.exports = app => {
           res.send('need more')
         } else {
         User.create({
-          username, email, phone, links, bio
+          username, email, phone, links, bio, password: hashedPassword, pfPic, profile
         })
         .then(() => res.sendStatus(200))
         .catch(e => {
@@ -57,18 +57,20 @@ module.exports = app => {
           res.sendStatus(200)
           return
         }
-        bcrypt.compare(req.body.password, user.password).then(response => {
-          if (response !== true) {
-            console.log('passwords do not match')
-            res.sendStatus(200)
+        bcrypt.compare(req.body.password, user.password)
+          .then(response => {
+            if (response !== true) {
+              console.log('passwords do not match')
+              res.sendStatus(200)
+              return 
+            }
+            console.log('user found & authenticated')
+            res.json({
+              token: jwt.sign({ id: user._id }, process.env.SECRET)
+            })
             return 
-          }
-          console.log('user found & authenticated')
-          res.json({
-            token: jwt.sign({ id: user._id }, process.env.SECRET)
           })
-          return 
-        })
+          .catch(e=>console.error(e))
       })
   })
   

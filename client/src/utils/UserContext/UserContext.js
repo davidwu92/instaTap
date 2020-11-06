@@ -4,6 +4,7 @@ const UserContext = createContext({
   username: '',
   email: '',
   phone: '',
+  password: '',
   bio: '',
   links: [],
   pfPic: '',

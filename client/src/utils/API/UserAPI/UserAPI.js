@@ -19,6 +19,8 @@ const UserAPI = {
   //login existing user.
   loginUser: (user) => axios.post('/login', user),
 
+  // get all request
+  getRequest: (id) => axios.get(`/request/${id}`),
 }
 
 export default UserAPI

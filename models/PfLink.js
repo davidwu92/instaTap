@@ -1,6 +1,6 @@
 module.exports = (model, Schema) => {
     const PfLink = new Schema({
-        title: String,
+        mediaSite: String,
         link: String,
         createdAt: { type: Date, default: Date.now },
         userLink: {
