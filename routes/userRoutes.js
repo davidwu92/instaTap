@@ -9,7 +9,6 @@ module.exports = app => {
   // Register new user
   app.post('/users', (req, res) => {
       const { username, email, phone, links, bio, password, pfPic, profile } = req.body
-      // changed password functionality
       
       bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then(hashedPassword => {
         
@@ -18,17 +17,15 @@ module.exports = app => {
         } else if (password.length <= 3){
           res.send('need more')
         } else {
-        User.create({
-          username, email, phone, links, bio, password: hashedPassword, pfPic, profile
-        })
-        .then(() => res.sendStatus(200))
-        .catch(e => {
-          if (e) {
-            res.json({ success: false, message: "Your account could not be saved. Error: ", e})
-          }
-          
-        })
+        User.create({username, email, phone, links, bio, password: hashedPassword, pfPic, profile})
+          .then(() => res.sendStatus(200))
+          .catch(e => {
+            if(e){
+              res.json({ success: false, message: "Your account could not be saved. Error: ", e})
+            }
+          })
         }
+        
       })
   })
 

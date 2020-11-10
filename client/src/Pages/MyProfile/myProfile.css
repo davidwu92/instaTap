@@ -15,19 +15,19 @@
   cursor: pointer;
   outline: none;
   z-index: 3;
-  background: transparent;
+  background: #424242; /* grey darken-3 */
   color: #07051a;
   font-size: 14px;
   border: solid 1px;
   border-radius: 10px;
+  border-color: #212121; /* grey darken-4 */
   text-transform: uppercase;
   transition: all 0.2s linear;
-  padding: 4px;
-  padding-right: 4px;
 }
 
 #editBtn:hover {
-  background: #009688;
+  background: #757575; /* grey darken-1 */
+  border-color: #212121; /* grey darken-4 */
   color: white;
   transition: all 0.2s linear;
 }

@@ -25,7 +25,7 @@ module.exports = app => {
             .catch(e => console.error(e))
     })
 
-// delete PfLink link
+    // delete PfLink link
       app.delete('/pflinks', passport.authenticate('jwt', { session: false }), (req, res) => {
         const { _id: userLink } = req.user
         const { _id: id } = req.body

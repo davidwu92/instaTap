@@ -35,8 +35,6 @@ const LoginForm = () => {
   //defining function for LOG IN button.
   loginState.handleLogin = (event) => {
     event.preventDefault()
-    console.log(loginState.username)
-    console.log(loginState.password)
     loginUser({
       username: loginState.username,
       password: loginState.password

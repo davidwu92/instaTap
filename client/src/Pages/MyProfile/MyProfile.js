@@ -7,6 +7,7 @@ import {
   TextInput
 } from 'react-materialize'
 import UserAPI from '../../utils/API/UserAPI'
+
 // import default_profile from '../../default_profile.jpg'
 
 import { toast } from 'react-toastify';
@@ -14,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import default_profile from '../../default_profile.jpg';
 import axios from 'axios';
 
-const { getUser, updateUser } = UserAPI
+const { getUser, updateUser, addLink, getLinks, deleteLink } = UserAPI
 
 const MyProfile = () => {
   const [profileState, setProfileState] = useState({
@@ -37,7 +38,7 @@ const MyProfile = () => {
         localStorage.setItem('userId', data._id)
         setProfileState({
           ...profileState,
-          username: data.name,
+          username: data.username,
           email: data.email,
           phone: data.phone,
           bio: data.bio,
@@ -61,7 +62,7 @@ const MyProfile = () => {
     //basic info
     username: '', email: '', phone: '', bio: '', profile: '', pfPic: '', links: '',
     //new post info
-    newMediaSite: '', newLink: '', newLinks: '',
+    newMediaTitle: '', newMediaPlatform: '', newMediaUrl: ''
   })
 
   //handles input changes for EDITING FORMS on this page.
@@ -105,20 +106,21 @@ const MyProfile = () => {
   }
 
   //~~~~~~~~~~ADDING LINKS STUFF~~~~~~~~~
-    // const [pfLinkState, setPfLinkState] = useState({
-    //   links: []
-    // })
+  const [pfLinkState, setPfLinkState] = useState({
+    links: []
+  })
 
-    // on page load, show links?
-    useEffect(() => {
-      // getLinks(token)
-      //   .then(({ data }) => {
-      //     let links = []
-      //     links.push(data)
-      //     setPfLinkState({ ...pfLinkState, links })
-      //   })
-      //   .catch(e => console.error(e))
-    }, [])
+  // on page load, show links?
+  useEffect(() => {
+    getLinks(token)
+      .then(({ data }) => {
+        console.log(data)
+        let links = []
+        links.push(data)
+        setPfLinkState({ ...pfLinkState, links })
+      })
+      .catch(e => console.error(e))
+  }, [])
 
   //configure error messages for addLlink.
   toast.configure();
@@ -165,6 +167,38 @@ const MyProfile = () => {
   // email link variable
   let email = "mailto:" + profileState.email
 
+
+  // ADD EMBEDDING LINK
+  const addMedia = (event) => {
+    event.preventDefault()
+    let token = JSON.parse(JSON.stringify(localStorage.getItem("token")))
+    let mediaPost = { newMediaTitle: editState.newMediaTitle,
+                      newMediaPlatform: editState.newMediaPlatform,
+                      newMediaUrl: editState.newMediaUrl }
+    if (mediaPost.newMediaTitle) {
+      if ( mediaPost.newMediaPlatform && mediaPost.newMediaUrl) { //Check for validity here?
+        addLink(token, mediaPost)
+          .then(() => {
+            setEditState({ ...editState, newMediaTitle: '', newMediaPlatform: '', newMediaUrl: '' })
+            getLinks(token)
+              .then(({ data }) => {
+                let links = []
+                links.push(data)
+                setPfLinkState({ ...pfLinkState, links })
+              })
+              .catch(e => console.error(e))
+          })
+          .catch(e => console.error(e))
+      } else {
+        setEditState({ ...editState, newMediaLink: '', newMediaPlatform: '' })
+        return (toast(`Make sure you select a platform and provide a valid URL to your profile.`, toastOptions))
+      }
+    } else {
+      setEditState({ ...editState, newMediaTitle: '' })
+      return (toast(`Please provide a title for your post.`, toastOptions))
+    }
+  }
+
   return (
     <>
       <div className="container">
@@ -207,9 +241,9 @@ const MyProfile = () => {
           {/* BASIC INFO */}
           <div className="col s8 m3">
             {/* USERNAME */}
-            <h5 className="white-text">{profileState.username}</h5>
+            <h4 className="white-text">{profileState.username}</h4>
             {/* EMAIL */}
-            <a href={email}>{profileState.email}</a>
+            <h6><a href={email}>{profileState.email}</a></h6>
             {/* BIO */}
             <h6 className="grey-text">{profileState.bio}</h6>
           
