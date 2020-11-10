@@ -10,12 +10,13 @@ module.exports = app => {
           .then(userLink => res.json(userLink))
           .catch(e => console.error(e))
     })
+    
     // POST LINK
     app.post('/pflinks', passport.authenticate('jwt', { session: false }), (req, res) => {
         const { _id: userLink } = req.user
-        const { title, body, link } = req.body
+        const { mediaTitle, mediaPlatform, mediaUrl } = req.body
       
-        PfLink.create({ title, body, link, userLink })
+        PfLink.create({ mediaTitle, mediaPlatform, mediaUrl, userLink })
             .then(pflink => {
              
               User.updateOne({ _id: userLink }, { $push: { links: pflink } })

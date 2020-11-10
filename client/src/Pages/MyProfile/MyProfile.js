@@ -7,6 +7,8 @@ import {
   TextInput
 } from 'react-materialize'
 import UserAPI from '../../utils/API/UserAPI'
+import LinksCards from '../../Components/LinksCards'
+import ProfileContext from '../../utils/ProfileContext'
 
 // import default_profile from '../../default_profile.jpg'
 
@@ -125,7 +127,15 @@ const MyProfile = () => {
   //configure error messages for addLlink.
   toast.configure();
   const toastOptions = { autoClose: 7000, hideProgressBar: true, type: "error" }
+  
+  //Add a profile link button
+  const createPost = <button id="editBtn" className="waves-effect waves-light center-align white-text col s12">Create a post</button>;
 
+  const mediaPlatformSelect = ()=>{
+    setEditState({
+      ...editState, newMediaPlatform: document.getElementById('mediaPlatformMenu').value
+    })
+  }
   //EDITING PROFILE: FORM SUBMISSION
   const editPfButton = <button id="editBtn" className="waves-effect waves-light right white-text col s12"><i id="editBtnIcon" className="fas fa-user-edit"></i></button>
   
@@ -281,13 +291,67 @@ const MyProfile = () => {
 
         <div className="divider grey"></div>
 
+        <div className="container">
+          {/* POST LINK. NEEDS TO BE EDITED. */}
+          <div className="row center-align">
+            <div className="row"></div>
+            {/* CREATEPOST MODAL BUTTON (commented out for now) */}
+            <Modal id="edProfModal" className="center-align"
+              actions={[
+                <Button flat modal="close" node="button" className="waves-effect waves-light" id="editBtn" >
+                  Close
+                </Button>,
+                <span>  </span>,
+                <Button onClick={addMedia} flat modal="close" node="button" className="waves-effect waves-light" id="editBtn">
+                  Submit
+                </Button>
+              ]}
+              header="Add a profile link"
+              options={{
+                dismissible: true, endingTop: '10%', inDuration: 250, onCloseEnd: null,
+                onCloseStart: null, onOpenEnd: null, onOpenStart: null, opacity: 0.5,
+                outDuration: 250, preventScrolling: true, startingTop: '4%'
+              }}
+              trigger={createPost}
+            >
+            
+              {/* EMBED LINK FORM */}
+              <form action="#">
+                <h6 className="grey-text">Add a profile link</h6>
+                <TextInput placeholder="Title (required)" type="newMediaTitle" id="newMediaTitle" name="newMediaTitle" value={editState.newMediaTitle} onChange={editState.handleInputChange} />
+                <TextInput placeholder="URL (required)" type="newMediaUrl" id="newMediaUrl" name="newMediaUrl" value={editState.newMediaUrl} onChange={editState.handleInputChange} />
+                {/* Choose type of post */}
+                <select
+                    id="mediaPlatformMenu"
+                    className="browser-default"
+                    options={{
+                      classes: '', dropdownOptions: {
+                        alignment: 'left',
+                        autoTrigger: true, closeOnClick: true, constrainWidth: true,
+                        container: null, coverTrigger: true, hover: false,
+                        inDuration: 150, onCloseEnd: null, onCloseStart: null,
+                        onOpenEnd: null, onOpenStart: null, outDuration: 250
+                      }
+                    }}
+                    onChange={mediaPlatformSelect}
+                  >
+                    {/* <option value="0" selected>Select Type</option> */}
+                    <option value="linkedIn" selected>LinkedIn</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="twitter">Twitter</option>
+                    <option value="snapchat">Snapchat</option>
+                </select>
+              </form>
+            </Modal> {/* -KEEP THIS FOR ADDLINK MODAL */}
+          </div>
+        </div>
 
         {/* MY PROFILE-LINKS */}
         <div className="row">
-          {/* LINKS/POSTS HERE */}
-          {/* <ProfileContext.Provider value={pfLinkState}>
+          <ProfileContext.Provider value={pfLinkState}>
             <LinksCards />
-          </ProfileContext.Provider> */}
+          </ProfileContext.Provider>
         </div>
 
       </div>
