@@ -17,7 +17,7 @@
 }
 
 #post {
-  border: solid .5px #00897b;
+  border: solid .5px #ffffff;
   padding: 5px;
   border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -28,5 +28,4 @@
 
 .card-img-pic {
   width: 100%;
-  height: 154.4px;
 }

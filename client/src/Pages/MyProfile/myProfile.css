@@ -110,3 +110,27 @@
   margin-right: auto;
   color: grey;
 }
+
+/* RADIO BUTTON STYLING */
+.radioButtons {
+  display: block;
+  text-align: left;
+  margin-top: 3px;
+}
+
+[type="radio"]:not(:checked)+span, [type="radio"]:checked+span{ /* all radio button spans */
+  padding-left: 28px;
+}
+
+[type="radio"]:checked+span{ /* CHECKED radio buttons text */
+  color: white;
+}
+
+[type="radio"].with-gap:checked+span:after { /* CHECKED radio buttons */
+  background-color: #FFFFFF;
+}
+
+/*  */
+[type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+  border: 2px solid #5a5a5a;
+}

@@ -4,7 +4,8 @@ import './myProfile.css'
 import {
   Modal,
   Button,
-  TextInput
+  TextInput,
+  RadioGroup
 } from 'react-materialize'
 import UserAPI from '../../utils/API/UserAPI'
 import LinksCards from '../../Components/LinksCards'
@@ -129,7 +130,7 @@ const MyProfile = () => {
   const toastOptions = { autoClose: 7000, hideProgressBar: true, type: "error" }
   
   //Add a profile link button
-  const createPost = <button id="editBtn" className="waves-effect waves-light center-align white-text col s12">Create a post</button>;
+  const createPost = <button id="editBtn" className="waves-effect waves-light center-align white-text col s12">Add a profile link</button>;
 
   const mediaPlatformSelect = ()=>{
     setEditState({
@@ -317,31 +318,53 @@ const MyProfile = () => {
             
               {/* EMBED LINK FORM */}
               <form action="#">
-                <h6 className="grey-text">Add a profile link</h6>
-                <TextInput placeholder="Title (required)" type="newMediaTitle" id="newMediaTitle" name="newMediaTitle" value={editState.newMediaTitle} onChange={editState.handleInputChange} />
-                <TextInput placeholder="URL (required)" type="newMediaUrl" id="newMediaUrl" name="newMediaUrl" value={editState.newMediaUrl} onChange={editState.handleInputChange} />
-                {/* Choose type of post */}
-                <select
-                    id="mediaPlatformMenu"
-                    className="browser-default"
-                    options={{
-                      classes: '', dropdownOptions: {
-                        alignment: 'left',
-                        autoTrigger: true, closeOnClick: true, constrainWidth: true,
-                        container: null, coverTrigger: true, hover: false,
-                        inDuration: 150, onCloseEnd: null, onCloseStart: null,
-                        onOpenEnd: null, onOpenStart: null, outDuration: 250
-                      }
-                    }}
-                    onChange={mediaPlatformSelect}
-                  >
-                    {/* <option value="0" selected>Select Type</option> */}
-                    <option value="linkedIn" selected>LinkedIn</option>
-                    <option value="instagram">Instagram</option>
-                    <option value="facebook">Facebook</option>
-                    <option value="twitter">Twitter</option>
-                    <option value="snapchat">Snapchat</option>
-                </select>
+                <div className="row">
+                  <div className="col s12 m6 l6">
+                    <TextInput placeholder="Title (required)" type="text" id="newMediaTitle" name="newMediaTitle" value={editState.newMediaTitle} onChange={editState.handleInputChange} />
+                    <TextInput placeholder="URL (required)" type="text" id="newMediaUrl" name="newMediaUrl" value={editState.newMediaUrl} onChange={editState.handleInputChange} />
+                  </div>
+                  {/* Choose type of post */} 
+                  <div className="col s12 m6 l6">
+                    <h6>Select a Media Platform</h6>
+                    <RadioGroup
+                      label="Media Platform"
+                      name="newMediaPlatform"
+                      value={editState.newMediaPlatform}
+                      onChange={editState.handleInputChange}
+                      options={[
+                        {label: 'LinkedIn', value: 'linkedIn'},
+                        {label: 'Github', value: 'github'},
+                        {label: 'Instagram', value: 'instagram'},
+                        {label: 'Facebook', value: 'facebook'},
+                        {label: 'Twitter', value: 'twitter'},
+                      ]}
+                      withGap={true}
+                      radioClassNames="radioButtons"
+                    />
+                    <>
+                      {/* <select
+                          id="mediaPlatformMenu"
+                          className="browser-default"
+                          options={{
+                            classes: '', dropdownOptions: {
+                              alignment: 'left',
+                              autoTrigger: true, closeOnClick: true, constrainWidth: true,
+                              container: null, coverTrigger: true, hover: false,
+                              inDuration: 150, onCloseEnd: null, onCloseStart: null,
+                              onOpenEnd: null, onOpenStart: null, outDuration: 250
+                            }
+                          }}
+                          onChange={mediaPlatformSelect}
+                        >
+                          <option value="linkedIn" selected>LinkedIn</option>
+                          <option value="instagram">Instagram</option>
+                          <option value="facebook">Facebook</option>
+                          <option value="twitter">Twitter</option>
+                          <option value="snapchat">Snapchat</option>
+                      </select> */}
+                    </>
+                  </div>
+                </div>
               </form>
             </Modal> {/* -KEEP THIS FOR ADDLINK MODAL */}
           </div>

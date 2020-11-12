@@ -3,6 +3,11 @@ import ProfileContext from '../../utils/ProfileContext'
 import './linkCards.css'
 import moment from 'moment'
 
+import instagramPng from './thumbnails/instagram.png'
+import facebookPng from './thumbnails/facebook.png'
+import twitterPng from './thumbnails/twitter.png'
+import linkedInPng from './thumbnails/linkedIn.png'
+import githubPng from './thumbnails/github.png'
 
 const LinksCards = () => {
 
@@ -15,38 +20,52 @@ const LinksCards = () => {
   // },[links])
 
   const mediaThumbnail = (platform)=>{
-    //NEED THUMBNAILS AND SWITCH CASE
-    return("some image url here")
+    switch(platform){
+      case "instagram":
+        return instagramPng;
+      case "facebook":
+        return facebookPng;
+      case "twitter":
+        return twitterPng;
+      case "linkedIn":
+        return linkedInPng;
+      case "github":
+        return githubPng;
+      default:
+        return '';
+    }
   }
   return (
     <div>
       {
-        links.map(link => link.map(ylink => {
-          let mediaPlatform = ylink.mediaPlatform
-          let mediaTitle = ylink.mediaTitle
-          let mediaUrl = ylink.mediaUrl
+        links.map(link => link.map(linkData => {
+          let mediaPlatform = linkData.mediaPlatform
+          let mediaTitle = linkData.mediaTitle
+          let mediaUrl = linkData.mediaUrl
           // let datePosted = moment(ylink.createdAt).format("MMMM Do YYYY, h:mm:ss a")
           return (
-            <div className="col s12 m6 l4">
+            <div className="col s6 m4 l3">
               <div id="post" className="card black hoverable z-depth-5">
-                <div className="center-align">
+                <div className="left-align">
                   {/* David's adding title and body: NEEDS STYLING */}
-                  <h5 className="white-text">{mediaTitle}</h5>
+                  <h5 className="white-text" style={{margin: '0.5rem 0 0.6rem 0.6rem'}}>{mediaTitle} {cardActivate}</h5>
                   {/* <h6 className="grey-text">{mediaUrl}</h6> */}
                 </div>
                 <div className="card-img">
-                  <a href={mediaUrl} target="_blank"><img className="card-img-pic" src={mediaThumbnail(mediaPlatform)} /></a>
+                  <a href={mediaUrl} target="_blank">
+                    <img className="card-img-pic" src={mediaThumbnail(mediaPlatform)} />
+                  </a>
                 </div>
-                <div className="card-action">
-                  {/* <span className="grey-text lighten-5">{datePosted}</span> */}
-                  {cardActivate}
+                {/* <div className="card-action">
+                  <span className="grey-text lighten-5">{mediaUsername}</span>
                   <br></br>
-                </div>
+                </div> */}
                 <div id="cardReveal" className="card-reveal">
                   <span className="card-title grey-text text-darken-4"><i className="material-icons white-text right">close</i></span>
                   <br></br>
-                  <h5 className="center-align">Would you like to delete this from your profile?</h5>
-                  <button id="delPost" className="btn waves-effect waves-light black col s12 white-text" href="#" onClick={() => deleteVideo(token, ylink._id)}>Delete</button>
+                  <h6 className="center-align">Would you like to delete link from your profile?</h6>
+                  <h6 className="center-align">This action cannot be undone.</h6>
+                  <button id="delPost" className="btn waves-effect waves-light black col s12 white-text" href="#" onClick={() => deleteVideo(token, linkData._id)}>Delete</button>
                 </div>
               </div>
             </div>
